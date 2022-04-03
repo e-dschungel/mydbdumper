@@ -8,6 +8,8 @@ Class to do configuration handling
 class ConfigHandler
 {
     private $configDir = "config";
+    private $configFileExtension = ".conf.php";
+    private $config = [];
 
     /**
     Returns array of all config files
@@ -33,7 +35,7 @@ class ConfigHandler
      */
     public function getDbNames()
     {
-        return str_replace(".conf.php", "", $this->getConfigFileNames());
+        return str_replace($this->configFileExtension, "", $this->getConfigFileNames());
     }
 
     /**
@@ -55,6 +57,27 @@ class ConfigHandler
      */
     public function loadConfig($dbName)
     {
-        include_once $this->configDir . $dbName;
+        include_once "../" . $this->configDir . "/" . $dbName . $this->configFileExtension;
+        $this->config = $config;
+    }
+
+    /**
+    Get username for current database
+
+    @return username
+     */
+    public function getUsername()
+    {
+        return $this->config["username"];
+    }
+
+    /**
+    Get password for current database
+
+    @return password
+     */
+    public function getPassword()
+    {
+        return $this->config["password"];
     }
 }

@@ -8,8 +8,9 @@ $configHandler = new eDschungel\ConfigHandler();
 $dbNames = $configHandler->getDbNames();
 
 foreach ($dbNames as $dbName) {
-    $backupFileHandler = new eDschungel\BackupFileHandler($config, $dbName);
-    $dumper = new eDschungel\Dumper($config, $dbName);
+    $configHandler->loadConfig($dbName);
+    $backupFileHandler = new eDschungel\BackupFileHandler($configHandler, $dbName);
+    $dumper = new eDschungel\Dumper($configHandler, $dbName);
     $backupFileName = $backupFileHandler->createCurrentBackupFileName();
     $dumper->dump();
     if ($dumper->wasSuccessful($backupFileName)) {

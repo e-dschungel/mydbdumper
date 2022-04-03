@@ -29,7 +29,12 @@ class Dumper
     */
     public function dump()
     {
-        $cmdline = "mysqldump";
+        $arguments = [];
+        $arguments[] = "--user=" . $this->config->getUsername();
+        $arguments[] = "--password=" . $this->config->getPassword();
+        $arguments[] = $this->dbName;
+        $cmdline = "mysqldump" . " " . implode(" ", $arguments);
+        print($cmdline);
         exec($cmdline);
     }
 
