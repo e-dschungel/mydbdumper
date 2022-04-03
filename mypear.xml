@@ -8,5 +8,11 @@
         <exclude name="Squiz.Commenting.DocCommentAlignment.SpaceBeforeStar" />
         <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamName" />
         <exclude name="Generic.Commenting.DocComment.TagValueIndent" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingPackageTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag" />
+        <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
     </rule>
 </ruleset>
