@@ -18,9 +18,9 @@ class ConfigHandler
      */
     public function getConfigFileNames()
     {
-        chdir($this->configDir);
         $directory = __DIR__ . '/../' . $this->configDir;
-        $fileNames = array_diff(scandir($directory), array('..', '.'));
+        chdir($directory);
+        $fileNames = glob('*' .  $this->configFileExtension);
         if (count($fileNames) > 0) {
             return $fileNames;
         } else {
@@ -39,11 +39,11 @@ class ConfigHandler
     }
 
     /**
-    Returns nr of config files
+    Returns nr of databases
 
     @return number of config files
      */
-    public function getNrConfigs()
+    public function getNrDBs()
     {
         return count($this->getDBNames());
     }
@@ -80,4 +80,17 @@ class ConfigHandler
     {
         return $this->config["password"];
     }
+
+    /**
+    Get directory name where backup is stored for given database
+
+    @param $dbname name of database
+
+    @return directory name where backup is stored
+     */
+    public function getBackupDirName($dbName)
+    {
+        return $this->config["backup_dir"] . '/' . $dbName;
+    }
+
 }

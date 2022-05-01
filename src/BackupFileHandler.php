@@ -77,16 +77,6 @@ class BackupFileHandler
     }
 
     /**
-    Get directory name where backup is stored
-
-    @return directory name where backup is stored
-     */
-    public function getDirectoryName()
-    {
-        return $this->config["backup_dir"] . '/' . $this->dbName;
-    }
-
-    /**
     Create file name for backup based on timestamp
 
     @return directory name
