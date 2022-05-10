@@ -20,3 +20,6 @@ foreach ($dbNames as $dbName) {
 if ($noSuccessfulDumps === $configHandler->getNrDBs()){
         print "All databases dumped successfully.\n";
     }
+    else{
+        print "Only $noSuccessfulDumps databases out of $configHandler->getNrDBs() were dumped successfully.";
+    }
