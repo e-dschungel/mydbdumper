@@ -51,12 +51,16 @@ class Dumper
         $returncode = exec($cmdline, $mysqldumpoutput);
         if (strlen($returncode) === 0 && $this->wasSuccessful($tempfilename)){
             $gzipcmdline = "gzip" . " -f " . $tempfilename;
-            $gzipreturncode = exec($gzipcmdline);
+            $gzipoutput = "";
+            $gzipreturncode = exec($gzipcmdline, $gzipoutput);
             if (strlen($gzipreturncode) === 0){
                 $stoptime = time();
                 $duration = $stoptime - $starttime;
-                print("Dump of database $this->dbName successfully completed at " .  datefmt_format($this->dateFormatter, $stoptime) . " duration ${duration}s\n");
+                print("Dump of database $this->dbName completed successfully at " .  datefmt_format($this->dateFormatter, $stoptime) . ", duration ${duration}s\n");
                 return true;
+            }
+            else {
+                print("Compressing failed, error message:\n" . $gzipoutput);
             }
         }
         print("Dump of database $this->dbName failed\n");
@@ -84,9 +88,9 @@ class Dumper
 	 * @license http://creativecommons.org/licenses/by/3.0/
 	 */
 	private function tailCustom($filepath, $lines = 1, $adaptive = true) {
-
 		// Open file
 		$f = @fopen($filepath, "rb");
+
 		if ($f === false) return false;
 
 		// Sets buffer size, according to the number of lines to retrieve.
