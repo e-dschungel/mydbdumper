@@ -19,6 +19,7 @@ foreach ($dbNames as $dbName) {
     if ($dumper->dump($backupFileName)) {
         $noSuccessfulDumps++;
         $mailer->sendMail($dbName, $backupFileName);
+        $backupFileHandler->rotateBackups();
     }
 }
 if ($noSuccessfulDumps === $configHandler->getNrDBs()) {

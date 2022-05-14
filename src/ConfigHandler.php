@@ -172,4 +172,16 @@ class ConfigHandler
     {
         return $this->config["emailTo"];
     }
+
+    /**
+    Get maximum number of backups.
+
+    @return number of backups
+     */
+    public function getMaxNrBackups()
+    {
+        return $this->config["maxNrBackups"];
+    }
+
+
 }

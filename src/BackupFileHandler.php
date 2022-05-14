@@ -85,4 +85,15 @@ class BackupFileHandler
     {
         return $this->dbName . strftime("%d%m%y", time()) . ".gz";
     }
+
+    /**
+    Rotates backupfiles, if more backups than configured are available they are deleted
+
+     */
+    public function rotateBackups()
+    {
+        while($this->getNrBackupFiles() > $this->config->getMaxNrBackups()) {
+            unlink($this->getNewestBackupFileName());
+        }
+    }
 }
