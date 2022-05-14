@@ -93,4 +93,39 @@ class ConfigHandler
         return $this->config["backup_dir"] . '/' . $dbName;
     }
 
+
+
+
+    public function getEmailBackend() {
+        return $this->config["emailBackend"];
+    }
+
+    public function getSMTPHost() {
+        return $this->config["SMTPHost"];
+    }
+
+    public function getSMTPAuth() {
+        return $this->config["SMTPAuth"];
+    }
+
+    public function getSMTPUsername() {
+        return $this->config["SMTPUsername"];
+    }
+
+    public function getSMTPPassword() {
+        return $this->config["SMTPPassword"];
+    }
+
+    public function getSMTPSecurity() {
+        return $this->config["SMTPSecurity"];
+    }
+
+    public function getEmailFrom() {
+        return $this->config["emailFrom"];
+    }
+
+    public function getEmailTo() {
+        return $this->config["emailTo"];
+    }
+
 }
