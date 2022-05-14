@@ -4,7 +4,7 @@ namespace eDschungel;
 
 /**
 Class to do configuration handling
-*/
+ */
 class ConfigHandler
 {
     private $configDir = "config";
@@ -84,7 +84,7 @@ class ConfigHandler
     /**
     Get directory name where backup is stored for given database
 
-    @param $dbname name of database
+    @param $dbName name of database
 
     @return directory name where backup is stored
      */
@@ -93,39 +93,83 @@ class ConfigHandler
         return $this->config["backup_dir"] . '/' . $dbName;
     }
 
+    /**
+    Get chosen email backend
 
-
-
-    public function getEmailBackend() {
+    @return email backend
+     */
+    public function getEmailBackend()
+    {
         return $this->config["emailBackend"];
     }
 
-    public function getSMTPHost() {
+    /**
+    Get SMTP Host
+
+    @return smtp host
+     */
+    public function getSMTPHost()
+    {
         return $this->config["SMTPHost"];
     }
 
-    public function getSMTPAuth() {
+    /**
+    Get chosen SMTP auth method
+
+    @return SMTP auth method
+     */
+    public function getSMTPAuth()
+    {
         return $this->config["SMTPAuth"];
     }
 
-    public function getSMTPUsername() {
+    /**
+    Get chosen SMTP username
+
+    @return SMTP username
+     */
+    public function getSMTPUsername()
+    {
         return $this->config["SMTPUsername"];
     }
 
-    public function getSMTPPassword() {
+    /**
+    Get chosen SMTP password
+
+    @return SMTP password
+     */
+    public function getSMTPPassword()
+    {
         return $this->config["SMTPPassword"];
     }
 
-    public function getSMTPSecurity() {
+    /**
+    Get chosen SMTP security
+
+    @return SMTP security
+     */
+    public function getSMTPSecurity()
+    {
         return $this->config["SMTPSecurity"];
     }
 
-    public function getEmailFrom() {
+    /**
+    Get email address from which backup mail is send
+
+    @return email address
+     */
+    public function getEmailFrom()
+    {
         return $this->config["emailFrom"];
     }
 
-    public function getEmailTo() {
+    /**
+    Get email address to which backup mail is send
+
+    @return email address
+     */
+    public function getEmailTo()
+    {
         return $this->config["emailTo"];
     }
-
 }

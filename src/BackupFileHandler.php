@@ -29,7 +29,7 @@ class BackupFileHandler
      */
     public function getBackupFileNames()
     {
-        $directory = __DIR__ . '/' . $this->getDirectoryName();
+        $directory = __DIR__ . '/' . $this->config->getBackupDirName($this->dbName);
         print($directory);
         chdir($directory);
         $fileNames = array_diff(scandir($directory), array('..', '.'));

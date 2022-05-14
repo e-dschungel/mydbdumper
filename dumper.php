@@ -21,9 +21,8 @@ foreach ($dbNames as $dbName) {
         $mailer->sendMail($dbName, $backupFileName);
     }
 }
-if ($noSuccessfulDumps === $configHandler->getNrDBs()){
+if ($noSuccessfulDumps === $configHandler->getNrDBs()) {
         print "All databases dumped successfully.\n";
-    }
-    else{
-        print "Only $noSuccessfulDumps databases out of $configHandler->getNrDBs() were dumped successfully.";
-    }
+} else {
+    print "Only $noSuccessfulDumps databases out of $configHandler->getNrDBs() were dumped successfully.";
+}
