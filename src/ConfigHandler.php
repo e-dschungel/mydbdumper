@@ -182,6 +182,4 @@ class ConfigHandler
     {
         return $this->config["maxNrBackups"];
     }
-
-
 }

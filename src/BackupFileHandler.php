@@ -88,10 +88,11 @@ class BackupFileHandler
     /**
     Rotates backupfiles, if more backups than configured are available they are deleted
 
+    @return void
      */
     public function rotateBackups()
     {
-        while($this->getNrBackupFiles() > $this->config->getMaxNrBackups()) {
+        while ($this->getNrBackupFiles() > $this->config->getMaxNrBackups()) {
             unlink($this->getNewestBackupFileName());
         }
     }
