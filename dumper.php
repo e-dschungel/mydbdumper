@@ -10,6 +10,8 @@ $configHandler = new eDschungel\ConfigHandler();
 $dbNames = $configHandler->getDbNames();
 
 $noSuccessfulDumps = 0;
+$noSuccessfulMailings = 0;
+
 foreach ($dbNames as $dbName) {
     $configHandler->loadConfig($dbName);
     $configHandler->checkConfig();
@@ -19,12 +21,18 @@ foreach ($dbNames as $dbName) {
     $backupFileName = $backupFileHandler->createCurrentBackupFileName();
     if ($dumper->dump($backupFileName)) {
         $noSuccessfulDumps++;
-        $mailer->sendMail($dbName, $backupFileName);
+        if ($mailer->sendMail($dbName, $backupFileName)) {
+            $noSuccessfulMailings++;
+        }
         $backupFileHandler->rotateBackups();
     }
 }
-if ($noSuccessfulDumps === $configHandler->getNrDBs()) {
-        print "All databases dumped successfully.\n";
+if ($noSuccessfulDumps === $configHandler->getNrDBs() && $noSuccessfulMailings === $configHandler->getNrDBs()) {
+    print "All databases were dumped and mailed successfully.\n";
+} elseif ($noSuccessfulDumps === $configHandler->getNrDBs()) {
+    print "All dumps were successful, but only $noSuccessfulMailings mailings out of ";
+    print $configHandler->getNrDBs();
+    print " were successful.\n";
 } else {
-    print "Only $noSuccessfulDumps databases out of $configHandler->getNrDBs() were dumped successfully.";
+    print "Only $noSuccessfulDumps dumps out of $configHandler->getNrDBs() were successful.\n";
 }
