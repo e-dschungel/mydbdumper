@@ -2,6 +2,8 @@
 
 namespace eDschungel;
 
+    use PHPMailer\PHPMailer\PHPMailer;
+
 /**
 Class to do configuration handling
  */
@@ -69,6 +71,65 @@ class ConfigHandler
     }
 
     /**
+    * Helper function that checks if multiple keys are in array
+    *
+    * @param $array array to check
+    * @param $keys keys to check
+    *
+    * @return bool true if all keys exist in array
+    */
+    private function allArrayKeysExist($array, $keys)
+    {
+        foreach ($keys as $k) {
+            if (!isset($array[$k])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+    * Function to check config, print warnings, and return a config with required default values
+    *
+    * @return void
+    */
+    public function checkConfig()
+    {
+        $smtp_config_requirements = array(
+            "SMTPHost",
+            "SMTPAuth",
+            "SMTPUsername",
+            "SMTPPassword",
+            "SMTPSecurity",
+            "SMTPPort",
+        );
+
+        if (!array_key_exists("username", $this->config)) {
+            echo("Username not given\n");
+        }
+
+        if (!array_key_exists("password", $this->config)) {
+            echo("Password not given\n");
+        }
+
+        if (!array_key_exists("backupDir", $this->config)) {
+            echo("Backup directory not given, setting default value \"../backup\"\n");
+            $this->config['backupDir'] = "../backup";
+        }
+
+        if (!array_key_exists("emailBackend", $this->config)) {
+            echo("emailBackend not given, setting default value mail!\n");
+            $this->config['emailBackend'] = "mail";
+        }
+
+        if (strtolower($this->config['emailBackend']) == "smtp") {
+            if (!$this->allArrayKeysExist($this->config, $smtp_config_requirements)) {
+                echo("Not all required SMTP variables were given!\n");
+            }
+        }
+    }
+
+    /**
     Get username for current database
 
     @return username
@@ -97,7 +158,7 @@ class ConfigHandler
      */
     public function getBackupDirName($dbName)
     {
-        return $this->config["backup_dir"] . '/' . $dbName;
+        return $this->config["backupDir"] . '/' . $dbName;
     }
 
     /**
@@ -153,11 +214,20 @@ class ConfigHandler
     /**
     Get chosen SMTP security
 
-    @return SMTP security
+    @return SMTP security constants PHPMailer::ENCRYPTION_STARTTLS or PHPMailer::ENCRYPTION_SMTPS or empty string
      */
     public function getSMTPSecurity()
     {
-        return $this->config["SMTPSecurity"];
+        switch (strtolower($this->config["SMTPSecurity"])) {
+            case "starttls":
+                return PHPMailer::ENCRYPTION_STARTTLS;
+                break;
+            case "smtps":
+                return PHPMailer::ENCRYPTION_SMTPS;
+                break;
+            default:
+                return "";
+        }
     }
 
     /**

@@ -46,16 +46,7 @@ class Mailer
                     $mail->SMTPAuth = $this->config->getSMTPAuth();
                     $mail->Username = $this->config->getSMTPUsername();
                     $mail->Password = $this->config->getSMTPPassword();
-                    switch (strtolower($$this->config->getSMTPSecurity())) {
-                        case "starttls":
-                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                            break;
-                        case "smtps":
-                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                            break;
-                        default:
-                            echo("Invalid config entry for SMTPSecurity {$this->config->getSMTPSecurity()}\n");
-                    }
+                    $mail->SMTPSecure = $this->config->getSMTPSecurity();
                     $mail->Port = $this->config->getSMTPPort();
                     break;
                 default:
