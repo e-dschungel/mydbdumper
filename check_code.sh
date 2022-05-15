@@ -11,8 +11,8 @@ PHPSTAN_LEVEL="1"
 echo "Static Code Analysis"
 $PHPSTAN_EXEC analyse -l $PHPSTAN_LEVEL $PHPSTAN_FILES_AND_DIRS
 
-echo "Check PHP Coding Standard PSR12"
-$PHPCS_EXEC --ignore=$PHPCS_IGNORE_PATHS --standard=psr12 .
+echo "Check PHP Coding Standard PSR12 (modified)"
+$PHPCS_EXEC --ignore=$PHPCS_IGNORE_PATHS --standard=mypsr12.xml .
 
 echo "Check PHP Coding Standard PEAR (modified)"
 $PHPCS_EXEC --ignore=$PHPCS_IGNORE_PATHS -s --standard=mypear.xml .
