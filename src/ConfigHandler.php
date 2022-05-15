@@ -9,10 +9,11 @@ class ConfigHandler
 {
     private $configDir = "config";
     private $configFileExtension = ".conf.php";
+    const DEFAULT_CONFIG_FILENAME = "config.conf.php";
     private $config = [];
 
     /**
-    Returns array of all config files
+    Returns array of all config files (except default config file)
 
     @return returns array of all configfiles or empty array if none are found
      */
@@ -21,6 +22,7 @@ class ConfigHandler
         $directory = __DIR__ . '/../' . $this->configDir;
         chdir($directory);
         $fileNames = glob('*' .  $this->configFileExtension);
+        $fileNames = \array_diff($fileNames, [self::DEFAULT_CONFIG_FILENAME]);
         if (count($fileNames) > 0) {
             return $fileNames;
         } else {
@@ -57,8 +59,13 @@ class ConfigHandler
      */
     public function loadConfig($dbName)
     {
+        $this->config = [];
+        if (file_exists("../" . $this->configDir . "/" . self::DEFAULT_CONFIG_FILENAME)) {
+            include_once "../" . $this->configDir . "/" . self::DEFAULT_CONFIG_FILENAME;
+            $this->config = $config;
+        }
         include_once "../" . $this->configDir . "/" . $dbName . $this->configFileExtension;
-        $this->config = $config;
+        $this->config = array_merge($this->config, $config);
     }
 
     /**
