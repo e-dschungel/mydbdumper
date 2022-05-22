@@ -89,6 +89,23 @@ class ConfigHandler
     }
 
     /**
+    * Helper function to check if given key exists. Return value for given key if it exists, $default if not.
+    *
+    * @param $key key of config to check
+    * @param $default value to return if $key doies not exist
+    *
+    * @return Return value for given $key if it exists, $default if not.
+    */
+    private function getConfig($key, $default)
+    {
+        if (array_key_exists($key, $this->config)) {
+            return $this->config[$key];
+        } else {
+            return $default;
+        }
+    }
+
+    /**
     * Function to check config, print warnings, and return a config with required default values
     *
     * @return void
@@ -136,7 +153,7 @@ class ConfigHandler
      */
     public function getUsername()
     {
-        return $this->config["username"];
+        return $this->getConfig("username", "");
     }
 
     /**
@@ -146,7 +163,7 @@ class ConfigHandler
      */
     public function getPassword()
     {
-        return $this->config["password"];
+        return $this->getConfig("password", "");
     }
 
     /**
@@ -158,17 +175,22 @@ class ConfigHandler
      */
     public function getBackupDirName($dbName)
     {
-        return $this->config["backupDir"] . '/' . $dbName;
+        $backupDir = $this->getConfig("backupDir", "");
+        if (strlen($backupDir) == 0) {
+            return "";
+        } else {
+            return $backupDir  . '/' . $dbName;
+        }
     }
 
     /**
     Get chosen email backend
 
-    @return email backend
+    @return email backend, "mail" if not given
      */
     public function getEmailBackend()
     {
-        return $this->config["emailBackend"];
+        return $this->getConfig("emailBackend", "mail");
     }
 
     /**
@@ -178,7 +200,7 @@ class ConfigHandler
      */
     public function getSMTPHost()
     {
-        return $this->config["SMTPHost"];
+        return $this->getConfig("SMTPHost", "");
     }
 
     /**
@@ -188,7 +210,7 @@ class ConfigHandler
      */
     public function getSMTPAuth()
     {
-        return $this->config["SMTPAuth"];
+        return $this->getConfig("SMTPAuth", "");
     }
 
     /**
@@ -198,7 +220,7 @@ class ConfigHandler
      */
     public function getSMTPUsername()
     {
-        return $this->config["SMTPUsername"];
+        return $this->getConfig("SMTPUsername", "");
     }
 
     /**
@@ -208,7 +230,7 @@ class ConfigHandler
      */
     public function getSMTPPassword()
     {
-        return $this->config["SMTPPassword"];
+        return $this->getConfig("SMTPPassword", "");
     }
 
     /**
@@ -218,7 +240,8 @@ class ConfigHandler
      */
     public function getSMTPSecurity()
     {
-        switch (strtolower($this->config["SMTPSecurity"])) {
+        $SMTPSecurity = strtolower($this->getConfig("SMTPSecurity", ""));
+        switch ($SMTPSecurity) {
             case "starttls":
                 return PHPMailer::ENCRYPTION_STARTTLS;
                 break;
@@ -237,7 +260,7 @@ class ConfigHandler
      */
     public function getEmailFrom()
     {
-        return $this->config["emailFrom"];
+        return $this->getConfig("emailFrom", "");
     }
 
     /**
@@ -247,7 +270,7 @@ class ConfigHandler
      */
     public function getEmailTo()
     {
-        return $this->config["emailTo"];
+        return $this->getConfig("emailTo", "");
     }
 
     /**
@@ -257,7 +280,8 @@ class ConfigHandler
      */
     public function getMaxNrBackups()
     {
-        return $this->config["maxNrBackups"];
+        return $this->getConfig("maxNrBackups", PHP_INT_MAX);
+    }
 
     /**
     Get options for mysqldump
