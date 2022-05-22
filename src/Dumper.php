@@ -51,6 +51,7 @@ class Dumper
         $arguments[] = "--result-file=" . $tempfilename;
         $arguments[] = $this->dbName;
         $cmdline = "mysqldump" . " " . implode(" ", $arguments);
+        $cmdline = escapeshellcmd($cmdline);
         $starttime = time();
         print("Start dump of database " . $this->dbName . " at "
         . datefmt_format($this->dateFormatter, $starttime) . "\n");
@@ -59,6 +60,7 @@ class Dumper
         $returncode = exec($cmdline, $mysqldumpoutput);
         if (strlen($returncode) === 0 && $this->wasSuccessful($tempfilename)) {
             $gzipcmdline = "gzip" . " -f " . $tempfilename;
+            $gzipcmdline = escapeshellcmd($gzipcmdline);
             $gzipoutput = "";
             $gzipreturncode = exec($gzipcmdline, $gzipoutput);
             if (strlen($gzipreturncode) === 0) {
