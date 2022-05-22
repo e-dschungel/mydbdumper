@@ -258,5 +258,14 @@ class ConfigHandler
     public function getMaxNrBackups()
     {
         return $this->config["maxNrBackups"];
+
+    /**
+    Get options for mysqldump
+
+    @return mysqldump options
+     */
+    public function getMysqldumpOptions()
+    {
+        return $this->getConfig("mysqldumpOptions", "");
     }
 }

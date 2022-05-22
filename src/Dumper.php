@@ -48,6 +48,7 @@ class Dumper
         $arguments = [];
         $arguments[] = "--user=" . $this->config->getUsername();
         $arguments[] = "--password=" . $this->config->getPassword();
+        $arguments[] = $this->config->getMysqldumpOptions();
         $arguments[] = "--result-file=" . $tempfilename;
         $arguments[] = $this->dbName;
         $cmdline = "mysqldump" . " " . implode(" ", $arguments);
