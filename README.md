@@ -1,5 +1,7 @@
-# MySQL Dumper
+# MyDBDumper
 This is a script to dump MySQL or MariaDB databases and mail it to a given address.
+A configurable number of backups is kept locally.
+It uses `mysqldump` for dumping and `gzip` for compressing so both are required as well as access to the `exec` PHP function.
 It uses [PHPMailer](https://github.com/PHPMailer/PHPMailer) for email sending.
 
 ## Requirements
@@ -11,12 +13,12 @@ It uses [PHPMailer](https://github.com/PHPMailer/PHPMailer) for email sending.
 
 ## Installation
 ### From Git
-* Clone this repo `git clone https://github.com/e-dschungel/rssgoemail`
+* Clone this repo `git clone https://github.com/e-dschungel/mydbdumper`
 * Install dependencies using composer `composer install --no-dev`
 * Rename `config/config.dist.php` to `config/config.conf.php` and edit it according to your needs, see below
 
 ### From ZIP file
-* Download `rssgoemail.zip` (NOT `Source Code (zip)` or `Source Code (tar.gz)`)  from https://github.com/e-dschungel/rssgoemail/releases/latest
+* Download `rssgoemail.zip` (NOT `Source Code (zip)` or `Source Code (tar.gz)`)  from https://github.com/e-dschungel/mydbdumper/releases/latest
 * Extract and upload it to your webserver
 * Rename `config/config.dist.php` to `config/config.conf.php` and edit it according to your needs, see below
 
