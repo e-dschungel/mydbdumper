@@ -6,6 +6,7 @@
         "phpstan/phpstan": "*"
     },
     "require": {
-        "phpmailer/phpmailer": "^6.6"
+        "phpmailer/phpmailer": "^6.6",
+        "symfony/process": "^5.4"
     }
 }

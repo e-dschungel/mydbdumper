@@ -2,6 +2,9 @@
 
 namespace eDschungel;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 /**
 Class to dump MySQL database and check if dump was successful
  */
@@ -45,36 +48,38 @@ class Dumper
         }
         $outputfilename = $this->config->getBackupDirName($this->dbName) . "/" . $filename;
         $tempfilename = str_replace(".gz", "", $outputfilename);
-        $arguments = [];
-        $arguments[] = "--user=" . $this->config->getUsername();
-        $arguments[] = "--password=" . $this->config->getPassword();
-        $arguments[] = $this->config->getMysqldumpOptions();
-        $arguments[] = "--result-file=" . $tempfilename;
-        $arguments[] = $this->dbName;
-        $cmdline = "mysqldump" . " " . implode(" ", $arguments);
-        $cmdline = escapeshellcmd($cmdline);
+        $dumpCommand = [];
+        $dumpCommand[] = "mysqldump";
+        $dumpCommand[] = "--user=" . $this->config->getUsername();
+        $dumpCommand[] = "--password=" . $this->config->getPassword();
+        $dumpCommand[] = $this->config->getMysqldumpOptions();
+        $dumpCommand[] = "--result-file=" . $tempfilename;
+        $dumpCommand[] = $this->dbName;
+        $dumpProcess = new Process($dumpCommand);
+        $dumpProcess->setInput($this->config->getPassword());
         $starttime = time();
-        print("Start dump of database " . $this->dbName . " at "
+        print("Started dump of database " . $this->dbName . " at "
         . datefmt_format($this->dateFormatter, $starttime) . "\n");
-        print("Dump command $cmdline \n");
-        $mysqldumpoutput = "";
-        $returncode = exec($cmdline, $mysqldumpoutput);
-        if (strlen($returncode) === 0 && $this->wasSuccessful($tempfilename)) {
-            $gzipcmdline = "gzip" . " -f " . $tempfilename;
-            $gzipcmdline = escapeshellcmd($gzipcmdline);
-            $gzipoutput = "";
-            $gzipreturncode = exec($gzipcmdline, $gzipoutput);
-            if (strlen($gzipreturncode) === 0) {
+        print("Dump command: " . implode(" ", $dumpCommand) . "\n");
+        $dumpProcess->run();
+        if ($dumpProcess->isSuccessful() && $this->wasSuccessful($tempfilename)) {
+            $gzipCommand = ["gzip",  "-f", $tempfilename];
+            $gzipProcess = new Process($gzipCommand);
+            $gzipProcess->run();
+            if ($gzipProcess->isSuccessful()) {
                 $stoptime = time();
                 $duration = $stoptime - $starttime;
                 print("Dump of database $this->dbName completed successfully at " .
                 datefmt_format($this->dateFormatter, $stoptime) . ", duration ${duration}s\n");
                 return true;
             } else {
-                print("Compressing failed, error message:\n" . $gzipoutput);
+                print("Compressing failed, error message:\n" . $gzipProcess->getErrorOutput());
+                return false;
             }
+        } else {
+            print("Dump of database $this->dbName failed, error message:\n");
+            print($dumpProcess->getErrorOutput());
         }
-        print("Dump of database $this->dbName failed\n");
         return false;
     }
 
