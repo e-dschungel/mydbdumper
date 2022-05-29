@@ -60,7 +60,7 @@ class Dumper
         //see https://stackoverflow.com/a/34670902
         $dumpProcess = new Process($dumpCommand, null, ["MYSQL_PWD" => $this->config->getPassword()], null, null);
         $starttime = time();
-        print("Started dump of database " . $this->dbName . " at "
+        print("Started dump at "
         . datefmt_format($this->dateFormatter, $starttime) . "\n");
         print("Dump command: " . implode(" ", $dumpCommand) . "\n");
         $dumpProcess->run();
@@ -71,7 +71,7 @@ class Dumper
             if ($gzipProcess->isSuccessful()) {
                 $stoptime = time();
                 $duration = $stoptime - $starttime;
-                print("Dump of database $this->dbName completed successfully at " .
+                print("Dump completed successfully at " .
                 datefmt_format($this->dateFormatter, $stoptime) . ", duration ${duration}s\n");
                 return true;
             } else {
