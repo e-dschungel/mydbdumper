@@ -7,4 +7,4 @@ $config["emailFrom"] = "test@example.com";
 $config["emailTo"] = "test@example.com";
 $config["emailBackend"] = "mail";
 $config["maxNrBackups"] = 10000;
-$config["mysqldumpOptions"] = "--single-transaction";
+$config["mysqldumpOptions"] = "";
