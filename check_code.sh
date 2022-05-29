@@ -5,7 +5,7 @@ PHPCS_IGNORE_PATHS="*/vendor/*,*/.phpdoc/*"
 PHPCOMPATIBILITY_IGNORE_PATHS="*/vendor/squizlabs/*,*/vendor/PHPCompatibility/*"
 MIN_PHP_VERSION="5.6"
 PHPSTAN_EXEC="./vendor/bin/phpstan"
-PHPSTAN_FILES_AND_DIRS="dumper.php src"
+PHPSTAN_FILES_AND_DIRS="mydbdumper.php src"
 PHPSTAN_LEVEL="1"
 
 echo "Static Code Analysis"
