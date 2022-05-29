@@ -82,7 +82,7 @@ class BackupFileHandler
      */
     public function createCurrentBackupFileName()
     {
-        return $this->dbName . strftime("%d%m%y%H%M%S", time()) . ".gz";
+        return $this->dbName . "_" . strftime("%d%m%Y_%H%M%S", time()) . ".gz";
     }
 
     /**
