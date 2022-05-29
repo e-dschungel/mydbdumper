@@ -14,9 +14,10 @@ $dbNames = $configHandler->getDbNames();
 $noSuccessfulDumps = 0;
 $noSuccessfulMailings = 0;
 
-print "myDBDumper started\n\n";
+print "myDBDumper started\n";
 
 foreach ($dbNames as $dbName) {
+    print("\n=====\nDatabase $dbName\n");
     $configHandler->loadConfig($dbName);
     $configHandler->checkConfig();
     $backupFileHandler = new eDschungel\BackupFileHandler($configHandler, $dbName);
