@@ -62,11 +62,11 @@ class ConfigHandler
     public function loadConfig($dbName)
     {
         $this->config = [];
-        if (file_exists("../" . $this->configDir . "/" . self::DEFAULT_CONFIG_FILENAME)) {
-            include_once "../" . $this->configDir . "/" . self::DEFAULT_CONFIG_FILENAME;
+        if (file_exists(__DIR__ . "/../" . $this->configDir . "/" . self::DEFAULT_CONFIG_FILENAME)) {
+            include __DIR__ . "/../" . $this->configDir . "/" . self::DEFAULT_CONFIG_FILENAME;
             $this->config = $config;
         }
-        include_once "../" . $this->configDir . "/" . $dbName . $this->configFileExtension;
+        include __DIR__ . "/../" . $this->configDir . "/" . $dbName . $this->configFileExtension;
         $this->config = array_merge($this->config, $config);
     }
 
