@@ -51,7 +51,9 @@ class Dumper
         $dumpCommand = [];
         $dumpCommand[] = "mysqldump";
         $dumpCommand[] = "--user=" . $this->config->getUsername();
-        $dumpCommand[] = $this->config->getMysqldumpOptions();
+        if (strlen($this->config->getMysqldumpOptions() > 0)) {
+            $dumpCommand[] = $this->config->getMysqldumpOptions();
+        }
         $dumpCommand[] = "--result-file=" . $tempfilename;
         $dumpCommand[] = $this->dbName;
         //don't password by argument but as enviromental parameter for security
