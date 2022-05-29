@@ -51,12 +51,12 @@ class Dumper
         $dumpCommand = [];
         $dumpCommand[] = "mysqldump";
         $dumpCommand[] = "--user=" . $this->config->getUsername();
-        $dumpCommand[] = "--password=" . $this->config->getPassword();
         $dumpCommand[] = $this->config->getMysqldumpOptions();
         $dumpCommand[] = "--result-file=" . $tempfilename;
         $dumpCommand[] = $this->dbName;
-        $dumpProcess = new Process($dumpCommand);
-        $dumpProcess->setInput($this->config->getPassword());
+        //don't password by argument but as enviromental parameter for security
+        //see https://stackoverflow.com/a/34670902
+        $dumpProcess = new Process($dumpCommand, null, ["MYSQL_PWD" => $this->config->getPassword()], null, null);
         $starttime = time();
         print("Started dump of database " . $this->dbName . " at "
         . datefmt_format($this->dateFormatter, $starttime) . "\n");
@@ -64,7 +64,7 @@ class Dumper
         $dumpProcess->run();
         if ($dumpProcess->isSuccessful() && $this->wasSuccessful($tempfilename)) {
             $gzipCommand = ["gzip",  "-f", $tempfilename];
-            $gzipProcess = new Process($gzipCommand);
+            $gzipProcess = new Process($gzipCommand, null, null, null);
             $gzipProcess->run();
             if ($gzipProcess->isSuccessful()) {
                 $stoptime = time();
