@@ -14,6 +14,8 @@ $dbNames = $configHandler->getDbNames();
 $noSuccessfulDumps = 0;
 $noSuccessfulMailings = 0;
 
+print "myDBDumper started\n\n";
+
 foreach ($dbNames as $dbName) {
     $configHandler->loadConfig($dbName);
     $configHandler->checkConfig();
@@ -29,6 +31,7 @@ foreach ($dbNames as $dbName) {
         $backupFileHandler->rotateBackups();
     }
 }
+print "\n";
 if ($noSuccessfulDumps === $configHandler->getNrDBs() && $noSuccessfulMailings === $configHandler->getNrDBs()) {
     print "All databases were dumped and mailed successfully.\n";
 } elseif ($noSuccessfulDumps === $configHandler->getNrDBs()) {
