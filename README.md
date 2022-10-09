@@ -42,3 +42,11 @@ The specific file `DBNAME.conf.php` will be loaded after `config.conf.php` and w
 |$config['SMTPPort']| SMTP port|
 |$config['username']| MySQL/MariaDB username|
 |$config['password']|| MySQL/MariaDB password|
+
+## Changelog
+### Version 0.1
+* first public release
+
+### Version 0.1.1
+* update PHPMailer to 6.6.5
+* update Process to 5.4.11
