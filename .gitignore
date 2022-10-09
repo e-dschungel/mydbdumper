@@ -2,3 +2,4 @@ vendor
 config/*
 !config/config.dist.php
 backup
+myDBDumper.zip
