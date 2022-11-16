@@ -50,3 +50,7 @@ The specific file `DBNAME.conf.php` will be loaded after `config.conf.php` and w
 ### Version 0.1.1
 * update PHPMailer to 6.6.5
 * update Process to 5.4.11
+
+### Version 0.1.2
+* improved handling if backup dir does not exist
+* update dev dependencies
