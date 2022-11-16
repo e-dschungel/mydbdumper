@@ -23,13 +23,40 @@ class BackupFileHandler
     }
 
     /**
+    Return backup dir (absolute path)
+
+    @return Return backup dir (absolute path)
+    */
+    private function getBackupDirName()
+    {
+        return __DIR__ . '/' . $this->config->getBackupDirName($this->dbName);
+    }
+
+    /**
+    Create backup dir if it does not exist
+
+    @return true is backup exists (or was created) and is writable
+    */
+    private function createBackupDir()
+    {
+        $result = true;
+        if (!file_exists($this->getBackupDirName())) {
+            $result = mkdir($this->getBackupDirName(), 0777, true);
+        }
+        return $result & is_dir($this->getBackupDirName()) & is_writeable($this->getBackupDirName());
+    }
+
+    /**
     Returns array of all backupfiles for given database
 
     @return returns array of all backupfiles for given database or empty array if none are found
      */
     public function getBackupFileNames()
     {
-        $directory = __DIR__ . '/' . $this->config->getBackupDirName($this->dbName);
+        if (!$this->createBackupDir()) {
+            return [];
+        }
+        $directory = $this->getBackupDirName();
         chdir($directory);
         $fileNames = array_diff(scandir($directory), array('..', '.'));
         if (count($fileNames) > 0) {
