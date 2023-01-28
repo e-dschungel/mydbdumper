@@ -7,6 +7,12 @@
     },
     "require": {
         "phpmailer/phpmailer": "^6.6",
-        "symfony/process": "^5.4"
+        "symfony/process": "^5.4",
+        "php": ">=7.2.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
