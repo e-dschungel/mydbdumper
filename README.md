@@ -5,7 +5,7 @@ It uses `mysqldump` for dumping and `gzip` for compressing so both are required 
 It uses [PHPMailer](https://github.com/PHPMailer/PHPMailer) for email sending and [Process](https://github.com/symfony/process) for executing command line programs.
 
 ## Requirements
-* PHP > 5.6
+* PHP > 7.2.5
 * a MySQL or MariaDB database
 * enabled proc_open function
 * mysqldump executable
@@ -54,3 +54,9 @@ The specific file `DBNAME.conf.php` will be loaded after `config.conf.php` and w
 ### Version 0.1.2
 * improved handling if backup dir does not exist
 * update dev dependencies
+
+### Version 0.1.3
+* update PHPMailer to 6.7.1
+* update Process to 5.4.19
+* update dev dependencies
+* correctly document minimal PHP version (due to process dependency)
