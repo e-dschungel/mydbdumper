@@ -19,7 +19,7 @@ It uses [PHPMailer](https://github.com/PHPMailer/PHPMailer) for email sending an
 * Create DBNAME.conf.php, see Configuration
 
 ### From ZIP file
-* Download `rssgoemail.zip` (NOT `Source Code (zip)` or `Source Code (tar.gz)`)  from https://github.com/e-dschungel/mydbdumper/releases/latest
+* Download `myDBDumper.zip` (NOT `Source Code (zip)` or `Source Code (tar.gz)`)  from https://github.com/e-dschungel/mydbdumper/releases/latest
 * Extract and upload it to your webserver
 * Rename `config/config.dist.php` to `config/config.conf.php` and edit it according to your needs, see below
 * Create DBNAME.conf.php, see Configuration
