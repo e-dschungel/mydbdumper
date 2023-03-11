@@ -60,3 +60,8 @@ The specific file `DBNAME.conf.php` will be loaded after `config.conf.php` and w
 * update Process to 5.4.19
 * update dev dependencies
 * correctly document minimal PHP version (due to process dependency)
+
+### Version 0.1.4
+* update PHPMailer to 6.8.0
+* update Process to 5.4.21
+* update dev dependencies
