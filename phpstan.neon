@@ -1,5 +1,5 @@
 parameters:
     ignoreErrors:
         -
-            message: '#Undefined variable: \$config.*#'
+            message: '#Variable \$config might not be defined#'
             path: src/ConfigHandler.php
