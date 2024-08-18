@@ -5,7 +5,7 @@ It uses `mysqldump` for dumping and `gzip` for compressing so both are required 
 It uses [PHPMailer](https://github.com/PHPMailer/PHPMailer) for email sending and [Process](https://github.com/symfony/process) for executing command line programs.
 
 ## Requirements
-* PHP > 8.1
+* PHP >= 8.1
 * a MySQL or MariaDB database
 * enabled proc_open function
 * mysqldump executable
